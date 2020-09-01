@@ -58,6 +58,14 @@ class _CategoricalBox(object):
         self.data = data
         self.contrast = contrast
         self.levels = levels
+    
+    def __eq__(self, other):
+        return (
+            self.data == other.data
+                and self.contrast == other.contrast
+                and self.levels == other.levels
+        )
+
 
 
 def C(data, contrast=None, levels=None):
@@ -214,6 +222,15 @@ class CategoricalSniffer(object):
         # If everything we've seen is boolean, assume that everything else
         # would be too. Otherwise we need to keep looking.
         return self._level_set == set([True, False])
+    
+    def __eq__(self, other):
+        return (
+            self._NA_action == other._NA_action
+                and self._origin == other._origin
+                and self._contrast == other._contrast
+                and self._levels == other._levels
+                and self._level_set == other._level_set
+        )
 
 
 def test_CategoricalSniffer():

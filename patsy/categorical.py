@@ -45,8 +45,8 @@ from patsy.util import (SortAnythingKey,
                         pandas_Categorical_from_codes,
                         pandas_Categorical_categories,
                         pandas_Categorical_codes,
-                        safe_issubdtype,
-                        no_pickling, assert_no_pickling)
+                        safe_issubdtype)
+                        
 
 if have_pandas:
     import pandas
@@ -59,7 +59,6 @@ class _CategoricalBox(object):
         self.contrast = contrast
         self.levels = levels
 
-    __getstate__ = no_pickling
 
 def C(data, contrast=None, levels=None):
     """
@@ -120,7 +119,6 @@ def test_C():
     assert c4.contrast == "NEW CONTRAST"
     assert c4.levels == "LEVELS"
 
-    assert_no_pickling(c4)
 
 def guess_categorical(data):
     if safe_is_pandas_categorical(data):
@@ -217,7 +215,6 @@ class CategoricalSniffer(object):
         # would be too. Otherwise we need to keep looking.
         return self._level_set == set([True, False])
 
-    __getstate__ = no_pickling
 
 def test_CategoricalSniffer():
     from patsy.missing import NAAction
